@@ -183,9 +183,6 @@ export default function LandingPage() {
               Your tech feeds, one place. No algorithm.
             </p>
 
-            <Link href="/feed" className="landing-hero-cta">
-              Get started for free
-            </Link>
           </div>
 
           {/* Product mockup */}
