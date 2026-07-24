@@ -16,7 +16,7 @@ export function TopNav() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-40 h-14 flex items-center px-3 gap-2 md:px-4 md:gap-3"
+      className="lg:hidden fixed top-0 left-0 right-0 z-40 h-14 flex items-center px-3 gap-2 md:px-4 md:gap-3"
       style={{ background: 'var(--color-surface)', borderBottom: '1px solid var(--color-border)' }}
     >
       {/* Hamburger — mobile only (opens the drawer); desktop toggle is inside the sidebar */}
