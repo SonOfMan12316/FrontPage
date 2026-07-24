@@ -24,19 +24,36 @@ interface Props {
 }
 
 export function ArticleCard({ article, compact = false }: Props) {
-  const toggleRead  = useStore(s => s.toggleRead)
-  const toggleSaved = useStore(s => s.toggleSaved)
+  const toggleRead         = useStore(s => s.toggleRead)
+  const toggleSaved        = useStore(s => s.toggleSaved)
+  const selectedId         = useStore(s => s.selectedArticleId)
+  const setSelectedArticle = useStore(s => s.setSelectedArticle)
+
+  const isSelected = selectedId === article.id
+
+  const selectArticle = () => {
+    setSelectedArticle(article.id)
+    if (!article.isRead) toggleRead(article.id)
+  }
+
+  const isDesktop = () => typeof window !== 'undefined' && window.innerWidth >= 1024
 
   return (
     <article
       className="group relative flex gap-3 px-4 py-3.5 transition-colors"
       style={{
         borderBottom: '1px solid var(--color-border-subtle)',
-        background: 'transparent',
-        opacity: article.isRead ? 0.65 : 1,
+        background: isSelected ? 'var(--color-accent-subtle)' : 'transparent',
+        opacity: article.isRead && !isSelected ? 0.65 : 1,
+        cursor: 'pointer',
       }}
-      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--color-bg-secondary)' }}
-      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+      onClick={() => { if (isDesktop()) selectArticle() }}
+      onMouseEnter={e => {
+        if (!isSelected) (e.currentTarget as HTMLElement).style.background = 'var(--color-bg-secondary)'
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLElement).style.background = isSelected ? 'var(--color-accent-subtle)' : 'transparent'
+      }}
     >
       {/* Unread dot */}
       <div className="absolute left-1.5 top-1/2 -translate-y-1/2 flex-shrink-0">
@@ -71,7 +88,10 @@ export function ArticleCard({ article, compact = false }: Props) {
         {/* Title */}
         <Link
           href={`/article/${article.id}`}
-          onClick={() => !article.isRead && toggleRead(article.id)}
+          onClick={e => {
+            if (isDesktop()) { e.preventDefault(); selectArticle() }
+            else if (!article.isRead) toggleRead(article.id)
+          }}
           className="block mb-1.5 transition-colors"
           style={{ color: 'inherit', textDecoration: 'none' }}
         >
@@ -86,7 +106,7 @@ export function ArticleCard({ article, compact = false }: Props) {
           </h3>
         </Link>
 
-        {/* Excerpt (hidden in compact mode) */}
+        {/* Excerpt */}
         {!compact && (
           <p className="text-xs leading-relaxed line-clamp-2 mb-2"
             style={{ color: 'var(--color-text-secondary)' }}>
@@ -99,7 +119,10 @@ export function ArticleCard({ article, compact = false }: Props) {
           <CategoryTag categoryId={article.categoryId} categoryName={article.categoryName} />
 
           {/* Hover actions */}
-          <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div
+            className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+            onClick={e => e.stopPropagation()}
+          >
             <ActionBtn
               title={article.isRead ? 'Mark unread' : 'Mark read'}
               onClick={() => toggleRead(article.id)}
