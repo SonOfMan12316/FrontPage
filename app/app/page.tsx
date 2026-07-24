@@ -183,6 +183,7 @@ export default function LandingPage() {
               Your tech feeds, one place. No algorithm.
             </p>
 
+
           </div>
 
           {/* Product mockup */}
@@ -393,7 +394,6 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="landing-container landing-footer-bottom">
-          <span>Frontpage · Frontend Mentor Challenge</span>
           <span>Built with Next.js 15 + Tailwind v4</span>
         </div>
       </footer>
