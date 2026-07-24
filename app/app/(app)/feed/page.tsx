@@ -105,9 +105,8 @@ function FeedContent() {
             {groups.map(group => (
               <div key={group.label}>
                 <div
-                  className="px-4 py-2 flex items-center gap-2 sticky z-10"
+                  className="px-4 py-2 flex items-center gap-2 sticky z-10 top-[97px] lg:top-[41px]"
                   style={{
-                    top: 97,
                     background: 'color-mix(in srgb, var(--color-bg-primary) 95%, transparent)',
                     backdropFilter: 'blur(4px)',
                     borderBottom: '1px solid var(--color-border-subtle)',

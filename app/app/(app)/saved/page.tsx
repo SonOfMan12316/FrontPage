@@ -14,9 +14,8 @@ export default function SavedPage() {
   return (
     <div className="app-page">
       {/* Header */}
-      <div className="sticky z-20 flex items-center gap-3 py-2 md:py-2.5"
+      <div className="sticky top-14 lg:top-0 z-20 flex items-center gap-3 py-2 md:py-2.5"
         style={{
-          top: 56,
           background: 'var(--color-bg-primary)',
           borderBottom: '1px solid var(--color-border)',
         }}>

@@ -10,11 +10,11 @@ interface Props {
 }
 
 export function FeedToolbar({ title, unreadCount, onMarkAllRead }: Props) {
-  const { layout, setLayout, sort, setSort } = useStore()
+  const { layout, setLayout, sort, setSort, detailPanelHidden, setDetailPanelHidden } = useStore()
 
   return (
     <div
-      className="sticky top-14 z-20 flex items-center gap-2 px-3 py-2 md:px-4 md:py-2.5 md:gap-3"
+      className="sticky top-14 lg:top-0 z-20 flex items-center gap-2 px-3 py-2 md:px-4 md:py-2.5 md:gap-3"
       style={{
         background: 'var(--color-bg-primary)',
         borderBottom: '1px solid var(--color-border)',
@@ -34,31 +34,7 @@ export function FeedToolbar({ title, unreadCount, onMarkAllRead }: Props) {
         )}
       </div>
 
-      {/* Sort — hidden on mobile */}
-      <select
-        value={sort}
-        onChange={e => setSort(e.target.value as SortMode)}
-        className="hidden sm:block text-xs px-2 py-1.5 rounded-md appearance-none cursor-pointer"
-        style={{
-          background: 'var(--color-bg-secondary)',
-          border: '1px solid var(--color-border)',
-          color: 'var(--color-text-secondary)',
-        }}
-      >
-        <option value="newest">Newest first</option>
-        <option value="oldest">Oldest first</option>
-        <option value="unread-first">Unread first</option>
-      </select>
-
-      {/* Layout toggles */}
-      <div className="flex items-center rounded-md overflow-hidden"
-        style={{ border: '1px solid var(--color-border)' }}>
-        {(['list', 'card', 'magazine'] as LayoutMode[]).map(mode => (
-          <LayoutBtn key={mode} mode={mode} active={layout === mode} onClick={() => setLayout(mode)} />
-        ))}
-      </div>
-
-      {/* Mark all read — icon on mobile, text on desktop */}
+      {/* Mark all read */}
       {unreadCount > 0 && (
         <button
           onClick={onMarkAllRead}
@@ -74,7 +50,52 @@ export function FeedToolbar({ title, unreadCount, onMarkAllRead }: Props) {
           <span className="hidden sm:inline">Mark all read</span>
         </button>
       )}
+
+      {/* Layout toggles */}
+      <div className="flex items-center rounded-md overflow-hidden"
+        style={{ border: '1px solid var(--color-border)' }}>
+        {(['list', 'card', 'magazine'] as LayoutMode[]).map(mode => (
+          <LayoutBtn key={mode} mode={mode} active={layout === mode} onClick={() => setLayout(mode)} />
+        ))}
+      </div>
+
+      {/* Sort — far right, hidden on mobile */}
+      <select
+        value={sort}
+        onChange={e => setSort(e.target.value as SortMode)}
+        className="hidden sm:block text-xs px-2 py-1.5 rounded-md appearance-none cursor-pointer"
+        style={{
+          background: 'var(--color-bg-secondary)',
+          border: '1px solid var(--color-border)',
+          color: 'var(--color-text-secondary)',
+        }}
+      >
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="unread-first">Unread first</option>
+      </select>
+
+      {/* Right panel toggle — desktop only */}
+      <button
+        onClick={() => setDetailPanelHidden(!detailPanelHidden)}
+        className="hidden lg:flex items-center justify-center w-7 h-7 rounded-md shrink-0 transition-colors"
+        style={{ color: detailPanelHidden ? 'var(--color-text-tertiary)' : 'var(--color-text-secondary)' }}
+        title={detailPanelHidden ? 'Show reader panel' : 'Hide reader panel'}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--color-bg-tertiary)' }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+      >
+        <RightPanelIcon />
+      </button>
     </div>
+  )
+}
+
+function RightPanelIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+      <rect x="1" y="1" width="14" height="14" rx="2" stroke="currentColor" strokeWidth="1.25"/>
+      <line x1="11" y1="1" x2="11" y2="15" stroke="currentColor" strokeWidth="1.25"/>
+    </svg>
   )
 }
 

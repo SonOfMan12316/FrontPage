@@ -30,8 +30,8 @@ export default function ArticlePage({ params }: { params: Promise<{ id: string }
   return (
     <div className="app-page app-page-narrow pb-8">
       {/* Back bar */}
-      <div className="sticky z-20 flex flex-wrap items-center gap-2 py-2.5 md:gap-3 md:py-3"
-        style={{ top: 56, borderBottom: '1px solid var(--color-border-subtle)', background: 'var(--color-bg-primary)' }}>
+      <div className="sticky top-14 lg:top-0 z-20 flex flex-wrap items-center gap-2 py-2.5 md:gap-3 md:py-3"
+        style={{ borderBottom: '1px solid var(--color-border-subtle)', background: 'var(--color-bg-primary)' }}>
         <Link
           href="/feed"
           className="flex items-center gap-1.5 text-sm transition-colors"
