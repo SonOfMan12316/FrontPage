@@ -1000,6 +1000,7 @@ body {
 
 /* Dark feature section */
 .landing-dark-features {
+  scroll-margin-top: 3.5rem;
   position: relative;
   overflow: hidden;
   background: #111318;
@@ -1182,6 +1183,10 @@ body {
 }
 
 /* Workflow */
+.landing-workflow {
+  scroll-margin-top: 3.5rem;
+}
+
 .landing-workflow-row {
   border-top: 1px solid var(--landing-border);
   padding-block: 3.5rem;
@@ -1317,6 +1322,7 @@ body {
 
 /* Sources */
 .landing-sources {
+  scroll-margin-top: 3.5rem;
   border-top: 1px solid var(--landing-border);
   padding-block: 2.5rem;
   text-align: center;
@@ -1423,3 +1429,27 @@ body {
 }
 
 .landing-footer-links a:hover { color: var(--landing-text); }
+
+/* ─── Auth pages ────────────────────────────────────────────────────────────── */
+@keyframes auth-appear {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.auth-appear {
+  animation: auth-appear 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.auth-otp-box {
+  width: 2.75rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  background: color-mix(in srgb, var(--color-accent) 8%, #ffffff);
+  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-border);
+  border-radius: 0.5rem;
+  outline: none;
+}
