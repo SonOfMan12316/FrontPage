@@ -165,8 +165,8 @@ export default function LandingPage() {
           </nav>
 
           <div className="landing-nav-actions">
-            <Link href="/feed" className="landing-link-muted">Log in</Link>
-            <Link href="/feed" className="landing-btn-primary">Sign up</Link>
+            <Link href="/login" className="landing-link-muted">Log in</Link>
+            <Link href="/signup" className="landing-btn-primary">Sign up</Link>
           </div>
         </div>
       </header>
@@ -392,9 +392,6 @@ export default function LandingPage() {
               <a href="#features">Features</a>
             </div>
           </div>
-        </div>
-        <div className="landing-container landing-footer-bottom">
-          <span>Built with Next.js 15 + Tailwind v4</span>
         </div>
       </footer>
     </div>
